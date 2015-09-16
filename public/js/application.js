@@ -1,26 +1,25 @@
 $(document).ready(function() {
 
-  $(".tab").on("click", function(event){
+  $("form").on("submit", function(event){
     event.preventDefault();
 
-    $(".tab").removeClass("active");
-    $(".container div").hide();
+    var $form = $(this);
 
-    var $tab = $(this);
-
-    var link = $tab.children()[0];
-    var href = $(link).attr("href");
+    var formData = $(this).serialize();
 
     $.ajax({
       url: "/things",
-      dataType: "json",
+      type: "POST",
+      data: formData,
       success: function(response) {
-        $(href).text(response.text);
-        $(href).show();
-        $tab.addClass("active");
+        $(".sayings ul").prepend(response);
+      },
+      error: function(response) {
+        $form.append("<h4>Ooops, that failed</h4>");
       }
     });
-  })
 
+    console.log("I am happening before success");
+  });
 });
 

@@ -1,11 +1,22 @@
 <div class="container">
-  <h1>jQuery Rocks</h1>
+  <h1>ajax Rocks</h1>
 
-  <ul>
-    <li class="tab"><a href="#thing1">Thing 1</a></li>
-    <li class="tab"><a href="#thing2">Thing 2</a></li>
-  </ul>
+  <div>
+    <h2>Add saying</h2>
+    <form>
+      <input type="text" name="thing[text]" />
+      <input type="submit" value="Create Saying">
+    </form>
+  </div>
 
-  <div id="thing1">This is some content for thing 1</div>
-  <div id="thing2">This is some content for thing 2</div>
+  <div class="sayings">
+    <h2>All Sayings</h2>
+    <ul>
+      <% @things.each do |thing| %>
+        <%= erb :"_thingy", locals: {thing: thing} %>
+      <% end %>
+    </ul>
+  </div>
+
+
 </div>
