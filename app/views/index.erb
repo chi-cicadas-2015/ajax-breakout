@@ -4,16 +4,18 @@
   <div>
     <h2>Add saying</h2>
     <form>
-      <input type="text" name="thing[text]" />
+      <input type="text" name="saying[text]" />
       <input type="submit" value="Create Saying">
     </form>
   </div>
 
+  <div id="edit_saying"></div>
+
   <div class="sayings">
     <h2>All Sayings</h2>
     <ul>
-      <% @things.each do |thing| %>
-        <%= erb :"_thingy", locals: {thing: thing} %>
+      <% @sayings.each do |saying| %>
+        <%= erb :"_saying", locals: {saying: saying} %>
       <% end %>
     </ul>
   </div>

@@ -1,14 +1,14 @@
 get '/' do
-  @things = Thing.all
+  @sayings = Saying.order("id desc")
   erb :index
 end
 
-post '/things' do
-  @thing = Thing.new(params[:thing])
+post '/sayings' do
+  @saying = Saying.new(params[:saying])
 
-  if @thing.save
+  if @saying.save
     if request.xhr?
-      erb :"_thingy", layout: false, locals: {thing: @thing}
+      erb :"_saying", layout: false, locals: {saying: @saying}
     else
       redirect '/'
     end
@@ -18,6 +18,24 @@ post '/things' do
     else
       erb :index
     end
+  end
+end
+
+get '/sayings/:id' do
+  @saying = Saying.find(params[:id])
+  @saying.to_json
+end
+
+get '/sayings/:id/edit' do
+  @saying = Saying.find(params[:id])
+  erb :"_edit", layout:false
+end
+
+put '/sayings/:id' do
+  @saying = Saying.find(params[:id])
+
+  unless @saying.update_attributes(params[:saying])
+    status 422
   end
 end
 

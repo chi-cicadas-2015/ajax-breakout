@@ -1,3 +1,3 @@
-class Thing < ActiveRecord::Base
+class Saying < ActiveRecord::Base
   validates :text, presence: true
 end

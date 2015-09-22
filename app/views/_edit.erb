@@ -1,0 +1,5 @@
+<h3>Edit Saying</h3>
+<form action="/sayings/<%= @saying.id %>">
+  <input type="text" name="saying[text]" value="<%= @saying.text %>"/>
+  <input type="submit" value="Edit Saying">
+</form>
