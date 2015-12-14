@@ -1,3 +1,20 @@
+/*********************************
+
+  1. what you are interacting with to make the event fire
+  2. do you need to prevent a default behavior
+  3. what data do you need to prepare
+  4. make the ajax call
+     - what is the method - GET/POST, etc
+     - route you are hitting
+      - controller is receiving the data properly (logger.info)
+      - do the appropriate action (save, get a template, etc)
+      - return the appropriate thing (template, json, etc)
+     - what happens on success/done
+        - what data did I get back?
+        - modify the current page with the data, figure out where to put it.
+     - what happens on error/fail
+**********************************/
+
 $(document).ready(function() {
 
   $("form").on("submit", function(event){
@@ -34,7 +51,7 @@ $(document).ready(function() {
   //   });
   // });
 
-  $(".sayings li").on("click", function(){
+  $(".sayings ul").on("click", "li", function(){
     var id = $(this).attr("id");
 
     $.ajax({
@@ -71,20 +88,35 @@ $(document).ready(function() {
 
 
 
-/*********************************
 
-  1. what you are interacting with to make the event fire
-  2. do you need to prevent a default behavior
-  3. what data do you need to prepare
-  4. make the ajax call
-     - what is the method - GET/POST, etc
-     - route you are hitting
-      - controller is receiving the data properly (logger.info)
-      - do the appropriate action (save, get a template, etc)
-      - return the appropriate thing (template, json, etc)
-     - what happens on success/done
-        - what data did I get back?
-        - modify the current page with the data, figure out where to put it.
-     - what happens on error/fail
-**********************************/
 
+var objectLiteral = {
+  myKey: "5",
+  myFunction: function(a, b) {
+    return a + b;
+  }
+}
+
+var john = new Student("");
+
+var Student = function(name, age) {
+  this._name = name;
+  this._age = age;
+  function myPrivateFunction() {
+
+  }
+
+  this.myFunction = function(a, b) {
+    return a + b;
+  }
+}
+
+Student.prototype._myFunction = function(a, b) {
+  return a + b;
+}
+
+String.prototype.doMySpecialThing = function() {
+  console.log(this);
+}
+
+"cool thing".doMySpecialThing();

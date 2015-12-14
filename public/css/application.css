@@ -30,4 +30,7 @@ li {
   padding: 5px 0;
 }
 
+.sayings li:hover {
+  color: red;
+}
 

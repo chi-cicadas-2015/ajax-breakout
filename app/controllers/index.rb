@@ -4,6 +4,7 @@ get '/' do
 end
 
 post '/sayings' do
+  p params
   @saying = Saying.new(params[:saying])
 
   if @saying.save
