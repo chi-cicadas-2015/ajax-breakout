@@ -1,55 +1,53 @@
+// What is AJAX?
+
+// How does it talk to the server?
+
+// Does it matter what kind of web app you are hitting?
+
 /*********************************
 
-  1. what you are interacting with to make the event fire
-  2. do you need to prevent a default behavior
-  3. what data do you need to prepare
-  4. make the ajax call
-     - what is the method - GET/POST, etc
-     - route you are hitting
-      - controller is receiving the data properly (logger.info)
-      - do the appropriate action (save, get a template, etc)
-      - return the appropriate thing (template, json, etc)
-     - what happens on success/done
-        - what data did I get back?
+  1. what you are interacting with to make the event fire (link, form submission, li, div)
+  2. what event are you trapping?
+  3. do you need to prevent a default behavior?
+  4. what data do you need to prepare
+  5. make the ajax call
+     a. what is the method - GET/POST, etc
+     b. what controller route you are hitting
+      - (ruby) controller is receiving the data properly (logger.info)
+        - (ruby) do the appropriate action (save, get a template, etc)
+        - (ruby) return the appropriate thing (template, json, etc)
+     c. what happens on success/done
+        - what data did I get back? (console.log the response)
         - modify the current page with the data, figure out where to put it.
-     - what happens on error/fail
+     d. what happens on error/fail
+        - what data did I get back? (console.log the response)
+        - modify the current page with the error message, figure out where to put it.
+
 **********************************/
 
 $(document).ready(function() {
 
   $("form").on("submit", function(event){
     event.preventDefault();
-
     var $form = $(this);
-
-    var formData = $(this).serialize();
+    var formData = $form.serialize();
 
     $.ajax({
-      url: "/sayings",
-      type: "POST",
+      url: $form.attr("action"),
       data: formData,
+      method: $form.attr("method"),
       success: function(response) {
         $(".sayings ul").prepend(response);
+        $form.trigger("reset");
+        $(".error").remove();
       },
       error: function(response) {
-        $form.append("<h4>Ooops, that failed</h4>");
+        console.log(response);
+        // var h4 = $("<h4>").attr("class")
+        $form.append("<h4 class='error'>Ooops, that failed</h4>");
       }
     });
-
-    console.log("I am happening before success");
   });
-
-
-  // $(".sayings li").on("click", function(){
-  //   var id = $(this).attr("id");
-  //   $.ajax({
-  //     url: "/sayings/" + id,
-  //     dataType: 'json',
-  //     success: function(response) {
-  //       $("#saying").text(response.text);
-  //     }
-  //   });
-  // });
 
   $(".sayings ul").on("click", "li", function(){
     var id = $(this).attr("id");
@@ -57,7 +55,7 @@ $(document).ready(function() {
     $.ajax({
       url: "/sayings/" + id + "/edit",
       success: function(response) {
-        $("#edit_saying").html(response);
+        $("#edit_saying").html("<div id=''><span>" + response + "</span></div>");
       }
     });
   });
@@ -80,43 +78,115 @@ $(document).ready(function() {
         $("#" + id).text(text);
       },
       error: function() {
-        $form.append("<h4>Ooops, that failed</h4>");
+        $form.append("<h4 class='error'>Ooops, that failed</h4>");
       }
     })
   });
+
 });
 
 
 
 
 
-var objectLiteral = {
-  myKey: "5",
-  myFunction: function(a, b) {
-    return a + b;
-  }
-}
 
-var john = new Student("");
 
-var Student = function(name, age) {
-  this._name = name;
-  this._age = age;
-  function myPrivateFunction() {
 
-  }
 
-  this.myFunction = function(a, b) {
-    return a + b;
-  }
-}
 
-Student.prototype._myFunction = function(a, b) {
-  return a + b;
-}
 
-String.prototype.doMySpecialThing = function() {
-  console.log(this);
-}
 
-"cool thing".doMySpecialThing();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// $("form").on("submit", function(event){
+//     event.preventDefault();
+
+//     var $form = $(this);
+
+//     var formData = $(this).serialize();
+
+//     $.ajax({
+//       url: "/sayings",
+//       type: "POST",
+//       data: formData,
+//       success: function(response) {
+//         $(".sayings ul").prepend(response);
+//         $form.trigger("reset");
+//         $(".error").remove();
+//       },
+//       error: function(response) {
+//         $form.append("<h4 class='error'>Ooops, that failed</h4>");
+//       }
+//     });
+
+//     console.log("I am happening before success");
+//   });
+
+
+
+
+
+
+
+

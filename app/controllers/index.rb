@@ -4,20 +4,21 @@ get '/' do
 end
 
 post '/sayings' do
-  p params
+
   @saying = Saying.new(params[:saying])
 
-  if @saying.save
-    if request.xhr?
-      erb :"_saying", layout: false, locals: {saying: @saying}
+  if request.xhr?
+    if @saying.save
+      erb :"_saying", locals: {saying: @saying}, layout: false
     else
-      redirect '/'
+      status 422
+      body "bad stuff happened"
     end
   else
-    if request.xhr?
-      status 422
+    if @saying.save
+        redirect '/'
     else
-      erb :index
+        erb :index
     end
   end
 end
