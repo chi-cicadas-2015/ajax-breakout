@@ -1,24 +1,18 @@
 <div class="container">
   <h1>ajax Rocks</h1>
 
-  <div>
-    <h2>Add saying</h2>
-    <form method="post" action="/sayings">
-      <input type="text" name="saying[text]" />
-      <input type="submit" value="Create Saying">
-    </form>
-  </div>
+  <a href="/sayings/new">Create Saying</a>
 
-  <div id="edit_saying"></div>
+  <div id="create_saying" class="hidden">
+    <%= erb :"sayings/_new", locals: {saying: @saying}%>
+  </div>
 
   <div class="sayings">
     <h2>All Sayings</h2>
     <ul>
       <% @sayings.each do |saying| %>
-        <%= erb :"_saying", locals: {saying: saying} %>
+        <li id="<%= saying.id %>"><%= saying.text %></li>
       <% end %>
     </ul>
   </div>
-
-
 </div>

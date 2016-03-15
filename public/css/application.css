@@ -45,3 +45,7 @@ li:last-child {
   color: red;
 }
 
+.hidden {
+  display: none;
+}
+

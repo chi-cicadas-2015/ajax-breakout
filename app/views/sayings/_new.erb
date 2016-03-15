@@ -1,0 +1,14 @@
+ <div>
+  <h2>Add saying</h2>
+  <% unless saying.errors.empty? %>
+  <ul>
+    <% saying.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <form method="post" action="/sayings">
+    <input type="text" name="saying[text]" value="<%= saying.text %>"/>
+    <input type="submit" value="Create Saying">
+  </form>
+</div>

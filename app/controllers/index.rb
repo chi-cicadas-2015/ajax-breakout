@@ -1,26 +1,31 @@
 get '/' do
   @sayings = Saying.order("id desc")
+  @saying = Saying.new
   erb :index
 end
 
 post '/sayings' do
-
   @saying = Saying.new(params[:saying])
 
   if request.xhr?
     if @saying.save
-      erb :"_saying", locals: {saying: @saying}, layout: false
+      erb :"sayings/_saying", locals: { saying: @saying }, layout: false
     else
       status 422
-      body "bad stuff happened"
+      body @saying.errors.full_messages
     end
   else
     if @saying.save
-        redirect '/'
+      redirect '/'
     else
-        erb :index
+      erb :"sayings/_new", locals: { saying: @saying }
     end
   end
+end
+
+get '/sayings/new' do
+  @saying = Saying.new
+  erb :"sayings/_new", locals: { saying: @saying }
 end
 
 get '/sayings/:id' do
@@ -30,7 +35,7 @@ end
 
 get '/sayings/:id/edit' do
   @saying = Saying.find(params[:id])
-  erb :"_edit", layout:false
+  erb :"sayings/_edit", layout:false
 end
 
 put '/sayings/:id' do

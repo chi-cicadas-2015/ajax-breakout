@@ -1,3 +1,3 @@
 class Saying < ActiveRecord::Base
-  validates :text, presence: true
+  validates :text, presence: true, uniqueness: true
 end
